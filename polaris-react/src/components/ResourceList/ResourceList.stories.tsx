@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import type {ComponentMeta} from '@storybook/react';
 import {
   Avatar,
@@ -1385,4 +1385,181 @@ export function WithBulkActionsAndPagination() {
       />
     </Card>
   );
+}
+
+export function WithoutInitialSelection() {
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const resourceName = {
+    singular: 'customer',
+    plural: 'customers',
+  };
+
+  const items = [
+    {
+      id: 101,
+      url: '#',
+      name: 'Mae Jemison',
+      location: 'Decatur, USA',
+    },
+    {
+      id: 201,
+      url: '#',
+      name: 'Ellen Ochoa',
+      location: 'Los Angeles, USA',
+    },
+  ];
+
+  return (
+    <Card padding="0" roundedAbove="sm">
+      <ResourceList
+        resourceName={resourceName}
+        items={items}
+        renderItem={renderItem}
+        selectedItems={selectedItems}
+        onSelectionChange={setSelectedItems}
+        selectable
+      />
+    </Card>
+  );
+
+  function renderItem(item) {
+    const {id, url, name, location} = item;
+    const media = <Avatar customer size="md" name={name} />;
+
+    return (
+      <ResourceItem
+        id={id}
+        url={url}
+        media={media}
+        accessibilityLabel={`View details for ${name}`}
+      >
+        <h3>
+          <Text fontWeight="bold" as="span">
+            {name}
+          </Text>
+        </h3>
+        <div>{location}</div>
+      </ResourceItem>
+    );
+  }
+}
+
+export function WithInitialSelection() {
+  const [selectedItems, setSelectedItems] = useState([101]);
+
+  const resourceName = {
+    singular: 'customer',
+    plural: 'customers',
+  };
+
+  const items = [
+    {
+      id: 101,
+      url: '#',
+      name: 'Mae Jemison',
+      location: 'Decatur, USA',
+    },
+    {
+      id: 201,
+      url: '#',
+      name: 'Ellen Ochoa',
+      location: 'Los Angeles, USA',
+    },
+  ];
+
+  return (
+    <Card padding="0" roundedAbove="sm">
+      <ResourceList
+        resourceName={resourceName}
+        items={items}
+        renderItem={renderItem}
+        selectedItems={selectedItems}
+        onSelectionChange={setSelectedItems}
+        selectable
+      />
+    </Card>
+  );
+
+  function renderItem(item) {
+    const {id, url, name, location} = item;
+    const media = <Avatar customer size="md" name={name} />;
+
+    return (
+      <ResourceItem
+        id={id}
+        url={url}
+        media={media}
+        accessibilityLabel={`View details for ${name}`}
+      >
+        <h3>
+          <Text fontWeight="bold" as="span">
+            {name}
+          </Text>
+        </h3>
+        <div>{location}</div>
+      </ResourceItem>
+    );
+  }
+}
+
+export function WithUseEffectSelection() {
+  const [selectedItems, setSelectedItems] = useState([]);
+  useEffect(() => {
+    setSelectedItems([101]);
+  }, []);
+
+  const resourceName = {
+    singular: 'customer',
+    plural: 'customers',
+  };
+
+  const items = [
+    {
+      id: 101,
+      url: '#',
+      name: 'Mae Jemison',
+      location: 'Decatur, USA',
+    },
+    {
+      id: 201,
+      url: '#',
+      name: 'Ellen Ochoa',
+      location: 'Los Angeles, USA',
+    },
+  ];
+
+  return (
+    <Card padding="0" roundedAbove="sm">
+      <ResourceList
+        resourceName={resourceName}
+        items={items}
+        renderItem={renderItem}
+        selectedItems={selectedItems}
+        onSelectionChange={setSelectedItems}
+        selectable
+      />
+    </Card>
+  );
+
+  function renderItem(item) {
+    const {id, url, name, location} = item;
+    const media = <Avatar customer size="md" name={name} />;
+
+    return (
+      <ResourceItem
+        id={id}
+        url={url}
+        media={media}
+        accessibilityLabel={`View details for ${name}`}
+      >
+        <h3>
+          <Text fontWeight="bold" as="span">
+            {name}
+          </Text>
+        </h3>
+        <div>{location}</div>
+      </ResourceItem>
+    );
+  }
 }
